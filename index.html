@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TES Corp APAC - 2025 Wrapped</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Circular+Std:wght@400;700;900&display=swap');
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    body {
+        font-family: 'Circular Std', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+        color: #fff;
+        overflow-x: hidden;
+        position: relative;
+    }
+    
+    /* Animated background particles */
+    .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+    }
+    
+    .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #E50914;
+        border-radius: 50%;
+        opacity: 0.3;
+        animation: float 15s infinite ease-in-out;
+    }
+    
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0) translateX(0);
+            opacity: 0.3;
+        }
+        50% {
+            transform: translateY(-100px) translateX(50px);
+            opacity: 0.6;
+        }
+    }
+    
+    .slide {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 60px 40px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .slide-title {
+        font-size: 5rem;
+        font-weight: 900;
+        text-align: center;
+        margin-bottom: 2rem;
+        background: linear-gradient(135deg, #E50914 0%, #ff6b6b 50%, #E50914 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: fadeInUp 0.8s ease-out, shimmer 3s infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { background-position: 0% center; }
+        100% { background-position: 200% center; }
+    }
+    
+    .slide-subtitle {
+        font-size: 1.8rem;
+        text-align: center;
+        color: #b3b3b3;
+        margin-bottom: 3rem;
+        animation: fadeInUp 1s ease-out, bounce 2s ease-in-out infinite 1s;
+    }
+    
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    .stat-card {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        border-radius: 20px;
+        padding: 40px;
+        margin: 20px;
+        max-width: 600px;
+        box-shadow: 0 10px 40px rgba(229, 9, 20, 0.2);
+        animation: fadeInUp 0.8s ease-out, cardGlow 3s ease-in-out infinite;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 2px solid transparent;
+    }
+    
+    @keyframes cardGlow {
+        0%, 100% {
+            box-shadow: 0 10px 40px rgba(229, 9, 20, 0.2);
+        }
+        50% {
+            box-shadow: 0 10px 60px rgba(229, 9, 20, 0.4);
+        }
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        border-color: #E50914;
+        box-shadow: 0 20px 60px rgba(229, 9, 20, 0.5);
+    }
+    
+    .stat-description {
+        font-size: 1rem;
+        color: #fff;
+        line-height: 1.6;
+    }
+    
+    .achievement-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        width: 100%;
+        padding: 40px 20px;
+    }
+    
+    .achievement-card {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        border-radius: 15px;
+        padding: 30px;
+        border-left: 4px solid #E50914;
+        animation: fadeInUp 0.8s ease-out;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        opacity: 0;
+        transform: translateY(30px) rotateY(-10deg);
+    }
+    
+    .achievement-card.visible {
+        opacity: 1;
+        transform: translateY(0) rotateY(0deg);
+    }
+    
+    .achievement-card:nth-child(1) { animation-delay: 0.1s; }
+    .achievement-card:nth-child(2) { animation-delay: 0.2s; }
+    .achievement-card:nth-child(3) { animation-delay: 0.3s; }
+    .achievement-card:nth-child(4) { animation-delay: 0.4s; }
+    .achievement-card:nth-child(5) { animation-delay: 0.5s; }
+    .achievement-card:nth-child(6) { animation-delay: 0.6s; }
+    
+    .achievement-card:hover {
+        transform: translateX(15px) scale(1.05) rotateY(5deg);
+        box-shadow: 0 15px 40px rgba(229, 9, 20, 0.4);
+        border-left-width: 6px;
+    }
+    
+    .achievement-category {
+        font-size: 0.9rem;
+        color: #E50914;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+        font-weight: 700;
+        animation: colorShift 3s ease-in-out infinite;
+    }
+    
+    @keyframes colorShift {
+        0%, 100% { color: #E50914; }
+        50% { color: #ff6b6b; }
+    }
+    
+    .achievement-text {
+        font-size: 1.1rem;
+        color: #fff;
+        line-height: 1.6;
+    }
+    
+    .big-number {
+        font-size: 10rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, #E50914 0%, #ff6b6b 50%, #E50914 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+        text-align: center;
+        margin: 40px 0;
+        animation: pulse 2s ease-in-out infinite, shimmer 3s infinite;
+        text-shadow: 0 0 40px rgba(229, 9, 20, 0.5);
+    }
+    
+    .highlight-text {
+        font-size: 2.2rem;
+        text-align: center;
+        color: #fff;
+        margin: 20px 0;
+        font-weight: 700;
+        animation: fadeInUp 1s ease-out, slideIn 1.5s ease-out;
+    }
+    
+    @keyframes slideIn {
+        0% {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    .section-title {
+        font-size: 3rem;
+        font-weight: 900;
+        text-align: center;
+        margin: 60px 0 40px;
+        background: linear-gradient(135deg, #E50914 0%, #ff6b6b 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: fadeInUp 0.8s ease-out, titlePulse 2s ease-in-out infinite;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+    }
+    
+    @keyframes titlePulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+    }
+    
+    .emoji {
+        font-size: 4rem;
+        margin: 20px 0;
+        animation: bounce 2s ease-in-out infinite, rotate 3s ease-in-out infinite;
+        display: inline-block;
+    }
+    
+    @keyframes rotate {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-10deg); }
+        75% { transform: rotate(10deg); }
+    }
+    
+    .final-message {
+        font-size: 2.5rem;
+        text-align: center;
+        background: linear-gradient(135deg, #E50914 0%, #ff6b6b 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 900;
+        margin-top: 60px;
+        animation: fadeInUp 1.2s ease-out, shimmer 3s infinite;
+    }
+    
+    .count-up {
+        display: inline-block;
+    }
+    
+    /* Scroll indicator */
+    .scroll-indicator {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #E50914;
+        font-size: 2rem;
+        animation: bounce 2s infinite;
+        z-index: 100;
+        cursor: pointer;
+    }
+    
+    /* Music Control Button Styles */
+    .music-control {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #E50914 0%, #ff3333 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1000;
+        box-shadow: 0 4px 20px rgba(229, 9, 20, 0.5);
+        transition: all 0.3s ease;
+    }
+    
+    .music-control:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 30px rgba(229, 9, 20, 0.7);
+    }
+    
+    .music-control svg {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .music-control .play {
+        display: none;
+    }
+    
+    .music-control .pause {
+        display: block;
+    }
+    
+    .music-control.paused .play {
+        display: block;
+    }
+    
+    .music-control.paused .pause {
+        display: none;
+    }
+    
+    .music-control.paused {
+        animation: pulseButton 1.5s infinite;
+        background: linear-gradient(135deg, #E50914 0%, #b30710 100%);
+    }
+    
+    @keyframes pulseButton {
+        0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 4px 20px rgba(229, 9, 20, 0.5);
+        }
+        50% {
+            transform: scale(1.1);
+            box-shadow: 0 6px 35px rgba(229, 9, 20, 0.8);
+        }
+    }
+    
+    
+</style>
+</head>
+<body>
+
+<!-- Audio Players - Three tracks for different slide sections -->
+<!-- MOBILE-FRIENDLY: Using separate audio elements with instant switching -->
+<audio id="track1" loop preload="auto">
+    <source src="background-music-1.mp3" type="audio/mpeg">
+</audio>
+<audio id="track2" loop preload="auto">
+    <source src="background-music-2.mp3" type="audio/mpeg">
+</audio>
+<audio id="track3" loop preload="auto">
+    <source src="background-music-3.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Music Control Button -->
+<div class="music-control paused" id="musicControl" title="🎵 Click to Play/Pause Music">
+    <!-- Muted speaker icon (shown when paused) -->
+    <svg class="play" viewBox="0 0 24 24" fill="white">
+        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+    </svg>
+    <!-- Speaker with sound waves icon (shown when playing) -->
+    <svg class="pause" viewBox="0 0 24 24" fill="white">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+    </svg>
+</div>
+
+<!-- Animated particles background -->
+<div class="particles" id="particles"></div>
+
+
+<!-- Slide 1: Title -->
+<div class="slide" data-track="track1">
+    <div class="slide-title">TES CORP APAC</div>
+    <div class="slide-subtitle">2025 WRAPPED</div>
+    <div class="emoji">🎉</div>
+    <div class="scroll-indicator">👇</div>
+</div>
+
+<!-- Slide 2: Team Growth -->
+<div class="slide" data-track="track1">
+    <div class="section-title">TEAM GROWTH</div>
+    <div class="big-number count-up" data-target="2">2X</div>
+    <div class="highlight-text">Doubled from 4 to 8 members</div>
+    <div class="achievement-grid" style="max-width: 800px;">
+        <div class="achievement-card">
+            <div class="achievement-category">Hiring</div>
+            <div class="achievement-text">Executed multi-cycle hiring process with iterative pivots to secure optimal talent</div>
+        </div>
+        <div class="achievement-card">
+            <div class="achievement-category">Expansion</div>
+            <div class="achievement-text">Doubled team capacity from 4 to 8 members (Kirk, Ahn, Russ, Jayvee), enabling extended UCAN support and enhanced operational capabilities</div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: AI Impact -->
+<div class="slide" data-track="track2">
+    <div class="section-title">ENTERPRISE TOOLS SUPPORT & AI</div>
+    <div class="big-number count-up" data-target="50">50%+</div>
+    <div class="highlight-text">Reduction in complex setup time (GAM, Visual Studio) using AI automation</div>
+    <div class="achievement-grid">
+        <div class="achievement-card">
+            <div class="achievement-category">Enterprise Tools</div>
+            <div class="achievement-text">Owned enterprise-wide Gemini Workspace and Productivity Assistant support</div>
+        </div>
+        <div class="achievement-card">
+            <div class="achievement-category">Support Operations</div>
+            <div class="achievement-text">Led enterprise-wide Nudge deployment and ongoing support operations</div>
+        </div>
+        <div class="achievement-card">
+            <div class="achievement-category">AI Innovation</div>
+            <div class="achievement-text">Deployed AI-powered Slack Weekly Digest, transforming data into actionable insights for proactive decision-making</div>
+        </div>
+        <div class="achievement-card">
+            <div class="achievement-category">Efficiency</div>
+            <div class="achievement-text">Achieved 50%+ reduction in GAM and Auto GG provisioning time through AI automation</div>
+        </div>
+        <div class="achievement-card">
+            <div class="achievement-category">CSAT</div>
+            <div class="achievement-text">Launched CSAT on December 1, enabling real-time customer satisfaction tracking</div>
+        </div>
+        <div class="achievement-card">
+            <div class="achievement-category">New Launch</div>
+            <div class="achievement-text">Tested and launched Netflix Assistant in #ntech-help, expanding self-service capabilities</div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Training & Integration -->
+<div class="slide" data-track="track2">
+    <div class="section-title">TRAINING & INTEGRATION</div>
+    <div class="achievement-grid">
+        <div class="achievement-card">
+            <div class="achievement-category">Animal Logic</div>
+            <div class="achievement-text">Led Animal Logic's Netflix integration through comprehensive system administration training (Okta, Google Workspace, Slack)</div>
+        </div>
+        <div class="achievement-card">
+            <div class="achievement-category">Eyeline</div>
+            <div class="achievement-text">Supported Eyeline integration in partnership with TSOS</div>
+        </div>
+        <div class="achievement-card">
+            <div class="achievement-category">APAC Training</div>
+            <div class="achievement-text">Delivered APAC-wide Productivity Assistant training in collaboration with TSOS</div>
+        </div>
+        <div class="achievement-card">
+            <div class="achievement-category">Okta Logs</div>
+            <div class="achievement-text">Established team-wide Okta Logs expertise, enabling independent Elasticsearch log analysis and troubleshooting</div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide: Fun Fact / Joke -->
+<div class="slide" data-track="track3">
+    <div class="emoji">🔄</div>
+    <div class="highlight-text" style="color: #b3b3b3; font-size: 1.5rem;">Our team's most-used phrase:</div>
+    <div class="slide-title" style="font-size: 3rem;">"Have you tried turning it off and on again?"</div>
+    <div class="highlight-text">Said 94,586 times</div>
+</div>
+
+<!-- Slide 5: Final -->
+<div class="slide" data-track="track3">
+    <div class="big-number">2025</div>
+    <div class="final-message">THANKS FOR AN INCREDIBLE YEAR</div>
+    <div class="emoji">🚀</div>
+    <div style="text-align: center; color: #b3b3b3; margin-top: 40px; font-size: 1rem;">
+        <span style="color: #E50914;">Netflix Internal Use Only</span>
+    </div>
+</div>
+
+<script>
+    // ========================================
+    // SMOOTH MULTI-TRACK MUSIC SYSTEM
+    // Uses requestAnimationFrame for smooth crossfades
+    // ========================================
+    
+    const tracks = {
+        track1: document.getElementById('track1'),
+        track2: document.getElementById('track2'),
+        track3: document.getElementById('track3')
+    };
+    const musicControl = document.getElementById('musicControl');
+    
+    let isPlaying = false;
+    let currentTrackId = 'track1';
+    let pendingTrackId = null; // Track to switch to after user interaction
+    let audioUnlocked = false;
+    
+    // Track-specific volume levels (track3 louder for Rick Roll! 🎤)
+    const TRACK_VOLUMES = {
+        track1: 0.12,
+        track2: 0.12,
+        track3: 0.45  // Rick Roll hits hard!
+    };
+    
+    // Initialize all tracks at 0 volume
+    Object.values(tracks).forEach(track => {
+        track.volume = 0;
+    });
+    
+    // ========================================
+    // SMOOTH CROSSFADE using requestAnimationFrame
+    // ========================================
+    function smoothFade(audio, fromVol, toVol, durationMs, onComplete) {
+        const startTime = performance.now();
+        
+        function animate(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / durationMs, 1);
+            
+            // Ease-out curve for smoother feel
+            const eased = 1 - Math.pow(1 - progress, 2);
+            audio.volume = fromVol + (toVol - fromVol) * eased;
+            
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                audio.volume = toVol;
+                if (onComplete) onComplete();
+            }
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    
+    // Switch to a new track with smooth crossfade
+    function switchTrack(newTrackId) {
+        if (currentTrackId === newTrackId) return;
+        
+        // If audio not unlocked yet, just remember which track to play
+        if (!audioUnlocked || !isPlaying) {
+            pendingTrackId = newTrackId;
+            currentTrackId = newTrackId;
+            return;
+        }
+        
+        const oldTrack = tracks[currentTrackId];
+        const newTrack = tracks[newTrackId];
+        const targetVolume = TRACK_VOLUMES[newTrackId];
+        const fadeDuration = 400; // ms - quick but smooth
+        
+        // Start new track at low volume immediately
+        newTrack.volume = 0.05;
+        newTrack.play().then(() => {
+            // Crossfade: fade out old, fade in new simultaneously
+            smoothFade(oldTrack, oldTrack.volume, 0, fadeDuration, () => {
+                oldTrack.pause();
+                oldTrack.currentTime = 0;
+            });
+            smoothFade(newTrack, 0.05, targetVolume, fadeDuration);
+        }).catch(e => {
+            console.log("Track switch prevented:", e);
+        });
+        
+        currentTrackId = newTrackId;
+    }
+    
+    // Toggle music on/off
+    function toggleMusic() {
+        if (isPlaying) {
+            // Fade out and pause
+            const track = tracks[currentTrackId];
+            smoothFade(track, track.volume, 0, 300, () => {
+                track.pause();
+            });
+            musicControl.classList.add('paused');
+            isPlaying = false;
+        } else {
+            // Unlock audio if needed (first tap)
+            if (!audioUnlocked) {
+                unlockAudio();
+            }
+            
+            // Use pending track if one was queued
+            if (pendingTrackId) {
+                currentTrackId = pendingTrackId;
+                pendingTrackId = null;
+            }
+            
+            // Play current track with fade in
+            const track = tracks[currentTrackId];
+            const targetVolume = TRACK_VOLUMES[currentTrackId];
+            track.volume = 0;
+            track.play().then(() => {
+                smoothFade(track, 0, targetVolume, 500);
+                musicControl.classList.remove('paused');
+                isPlaying = true;
+            }).catch(e => {
+                console.log("Playback prevented:", e);
+            });
+        }
+    }
+    
+    musicControl.addEventListener('click', toggleMusic);
+    
+    // ========================================
+    // AUDIO UNLOCK FOR MOBILE
+    // Must happen on direct user gesture (tap/click)
+    // ========================================
+    function unlockAudio() {
+        if (audioUnlocked) return;
+        
+        // Touch all audio elements to "unlock" them
+        Object.values(tracks).forEach(track => {
+            track.load(); // Reset
+        });
+        
+        audioUnlocked = true;
+        console.log("🔓 Audio unlocked");
+    }
+    
+    // Intersection Observer to detect which slide is visible
+    // Uses rootMargin to trigger when slide center crosses viewport center
+    const slideObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const trackId = entry.target.dataset.track;
+                if (trackId && trackId !== currentTrackId) {
+                    switchTrack(trackId);
+                }
+            }
+        });
+    }, {
+        // Shrink the detection zone to the middle 20% of viewport
+        // This triggers track change when slide center hits viewport center
+        rootMargin: '-40% 0px -40% 0px',
+        threshold: 0
+    });
+    
+    // Observe all slides with data-track attribute
+    document.querySelectorAll('.slide[data-track]').forEach(slide => {
+        slideObserver.observe(slide);
+    });
+    
+    // ========================================
+    // AUTO-PLAY ON FIRST USER INTERACTION
+    // touchstart fires when you BEGIN scrolling on mobile!
+    // ========================================
+    const startMusicOnInteraction = () => {
+        if (isPlaying) {
+            removeInteractionListeners();
+            return;
+        }
+        
+        // Unlock audio
+        if (!audioUnlocked) {
+            unlockAudio();
+        }
+        
+        // Find current visible slide to determine which track to play
+        const visibleSlide = Array.from(document.querySelectorAll('.slide[data-track]'))
+            .find(slide => {
+                const rect = slide.getBoundingClientRect();
+                return rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2;
+            });
+        
+        if (visibleSlide && visibleSlide.dataset.track) {
+            currentTrackId = visibleSlide.dataset.track;
+        }
+        
+        // Start playing with fade in
+        const track = tracks[currentTrackId];
+        const targetVolume = TRACK_VOLUMES[currentTrackId];
+        track.volume = 0;
+        track.play().then(() => {
+            smoothFade(track, 0, targetVolume, 500);
+            isPlaying = true;
+            musicControl.classList.remove('paused');
+        }).catch(e => {
+            console.log("Autoplay prevented:", e);
+        });
+        
+        // Remove listeners after first interaction
+        removeInteractionListeners();
+    };
+    
+    function removeInteractionListeners() {
+        document.removeEventListener('scroll', startMusicOnInteraction);
+        document.removeEventListener('click', startMusicOnInteraction);
+        document.removeEventListener('mousemove', startMusicOnInteraction);
+        document.removeEventListener('touchstart', startMusicOnInteraction);
+        document.removeEventListener('keydown', startMusicOnInteraction);
+    }
+    
+    // ALL interaction types - touchstart is KEY for mobile scroll!
+    document.addEventListener('scroll', startMusicOnInteraction);
+    document.addEventListener('click', startMusicOnInteraction);
+    document.addEventListener('mousemove', startMusicOnInteraction);
+    document.addEventListener('touchstart', startMusicOnInteraction);
+    document.addEventListener('keydown', startMusicOnInteraction);
+    
+    // ========================================
+    // PARTICLES & ANIMATIONS
+    // ========================================
+    function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 30;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+    }
+    
+    // Intersection Observer for card animations
+    const cardObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    });
+    
+    // Observe all achievement cards
+    document.querySelectorAll('.achievement-card').forEach(card => {
+        cardObserver.observe(card);
+    });
+    
+    // Scroll indicator click handler
+    document.querySelector('.scroll-indicator').addEventListener('click', () => {
+        window.scrollTo({
+            top: window.innerHeight,
+            behavior: 'smooth'
+        });
+    });
+    
+    // Hide scroll indicator after first scroll
+    let scrolled = false;
+    window.addEventListener('scroll', () => {
+        if (!scrolled && window.scrollY > 100) {
+            document.querySelector('.scroll-indicator').style.opacity = '0';
+            scrolled = true;
+        }
+    }, { passive: true });
+    
+    // Initialize on load
+    window.addEventListener('load', () => {
+        createParticles();
+        
+        // Trigger card animations with stagger
+        setTimeout(() => {
+            document.querySelectorAll('.achievement-card').forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.animation = `fadeInUp 0.8s ease-out ${index * 0.1}s both`;
+                }, index * 100);
+            });
+        }, 500);
+    });
+</script>
+
+</body>
+</html>
