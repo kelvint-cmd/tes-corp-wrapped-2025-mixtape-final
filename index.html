@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>N-TECH CORP APAC - 2025 Wrapped</title>
+<title>N-TECH Corp APAC - 2025 Wrapped</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Circular+Std:wght@400;700;900&display=swap');
     
@@ -371,12 +371,12 @@
         }
     }
     
-    
+
 </style>
 </head>
 <body>
 
-<!-- Audio Players - Three tracks for different slide sections -->
+<!-- Audio Players - Four tracks for different slide sections -->
 <!-- MOBILE-FRIENDLY: Using separate audio elements with instant switching -->
 <audio id="track1" loop preload="auto">
     <source src="background-music-1.mp3" type="audio/mpeg">
@@ -386,6 +386,9 @@
 </audio>
 <audio id="track3" loop preload="auto">
     <source src="background-music-3.mp3" type="audio/mpeg">
+</audio>
+<audio id="track4" loop preload="auto">
+    <source src="background-music-4.mp3" type="audio/mpeg">
 </audio>
 
 <!-- Music Control Button -->
@@ -402,6 +405,7 @@
 
 <!-- Animated particles background -->
 <div class="particles" id="particles"></div>
+
 
 
 <!-- Slide 1: Title -->
@@ -449,7 +453,7 @@
         </div>
         <div class="achievement-card">
             <div class="achievement-category">Efficiency</div>
-            <div class="achievement-text">Achieved 50%+ reduction in GAM and Auto GG provisioning time through AI automation</div>
+            <div class="achievement-text">Achieved 50%+ reduction in GAM and Auto GG set-up time through AI automation</div>
         </div>
         <div class="achievement-card">
             <div class="achievement-category">CSAT</div>
@@ -494,7 +498,7 @@
 </div>
 
 <!-- Slide 5: Final -->
-<div class="slide" data-track="track3">
+<div class="slide" data-track="track4">
     <div class="big-number">2025</div>
     <div class="final-message">THANKS FOR AN INCREDIBLE YEAR</div>
     <div class="emoji">🚀</div>
@@ -512,7 +516,8 @@
     const tracks = {
         track1: document.getElementById('track1'),
         track2: document.getElementById('track2'),
-        track3: document.getElementById('track3')
+        track3: document.getElementById('track3'),
+        track4: document.getElementById('track4')
     };
     const musicControl = document.getElementById('musicControl');
     
@@ -521,11 +526,12 @@
     let pendingTrackId = null; // Track to switch to after user interaction
     let audioUnlocked = false;
     
-    // Track-specific volume levels (track3 louder for Rick Roll! 🎤)
+    // Track-specific volume levels
     const TRACK_VOLUMES = {
-        track1: 0.12,
-        track2: 0.12,
-        track3: 0.45  // Rick Roll hits hard!
+        track1: 0.15,
+        track2: 0.15,
+        track3: 0.45,  // Rick Roll hits hard!
+        track4: 0.15  // Finale track
     };
     
     // Initialize all tracks at 0 volume
@@ -789,7 +795,9 @@
             });
         }, 500);
     });
+
 </script>
 
 </body>
 </html>
+
